@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Duel — ID Generator</title>
+<style>
+  :root {
+    --bg: #0c0f22; --card: #1c203b; --field: #0e1124; --field-border: #2a2f52;
+    --text: #ffffff; --muted: #8b91b4; --accent: #4957f5; --accent-hover: #3f4def;
+    --ok: #35c07a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text); display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 20px;
+  }
+  .card { background: var(--card); border-radius: 22px; padding: 30px 24px; width: 100%; max-width: 402px; text-align: center; }
+  h1 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+  p { color: var(--muted); font-size: 16px; margin-bottom: 24px; }
+  .id-display {
+    background: var(--field); border: 1px solid var(--field-border); border-radius: 14px;
+    padding: 20px; font-size: 24px; font-weight: 700; letter-spacing: 2px; margin-bottom: 20px;
+    color: var(--ok); min-height: 70px; display: flex; align-items: center; justify-content: center;
+  }
+  .btn {
+    display: block; width: 100%; background: var(--accent); color: #fff; border: none;
+    border-radius: 16px; padding: 16px; font-size: 18px; font-weight: 700; cursor: pointer;
+    transition: background .15s; font-family: inherit;
+  }
+  .btn:hover { background: var(--accent-hover); }
+  .btn.ghost { background: transparent; border: 1px solid var(--field-border); color: var(--muted); margin-top: 10px; }
+  .btn.ghost:hover { background: var(--field); color: #fff; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>ID Generator</h1>
+    <p>Generate a new Partner ID for your affiliates.</p>
+    <div class="id-display" id="display">---</div>
+    <button class="btn" onclick="generate()">Generate ID</button>
+    <button class="btn ghost" onclick="copyID()">Copy to Clipboard</button>
+  </div>
+
+<script>
+  function generate() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let id = 'DUEL-';
+    for(let i=0; i<8; i++) id += chars.charAt(Math.floor(Math.random() * chars.length));
+    document.getElementById('display').innerText = id;
+  }
+
+  function copyID() {
+    const text = document.getElementById('display').innerText;
+    if(text === '---') return;
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Copied: ' + text);
+    });
+  }
+</script>
+</body>
+</html>
